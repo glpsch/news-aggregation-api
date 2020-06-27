@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // const bcrypt = require('bcryptjs');
-const { urlValidator, emailValidator } = require('./validator');
+const { emailValidator } = require('./validator');
 
 
 const userSchema = new mongoose.Schema({
@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
 });
 
 
-
+// TODO
+// Нужно задать поведение по умолчанию, чтобы база данных не возвращала это поле
 
 userSchema.methods.omitPrivate = function omitPrivate() {
   const obj = this.toObject();
