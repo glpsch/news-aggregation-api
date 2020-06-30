@@ -3,6 +3,7 @@ const Article = require('../models/article');
 const {
   BadRequestError,
   NotFoundError,
+  ForbiddenError,
 } = require('../errors/errors');
 
 module.exports.getAllArticles = (req, res, next) => {
@@ -48,9 +49,11 @@ module.exports.deleteArticle = (req, res, next) => {
     .then((article) => {
       if (!article) {
         throw new NotFoundError('Такой статьи не существует');
-      // eslint-disable-next-line eqeqeq
-      } else {
+      } else if (article.owner.equals(req.user._id)) {
+        article.remove(req.params.cardId);
         res.status(200).send({ message: 'Статья успешно удалена' });
+      } else {
+        throw new ForbiddenError('Вы не можете удалить чужую статью');
       }
     })
     .catch((err) => {
