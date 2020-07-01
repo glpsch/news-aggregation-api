@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 // const bcrypt = require('bcryptjs');
 const { emailValidator } = require('./validator');
 
-
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -23,7 +22,6 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
 });
-
 
 // TODO
 // Нужно задать поведение по умолчанию, чтобы база данных не возвращала это поле
