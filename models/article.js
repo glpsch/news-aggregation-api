@@ -45,9 +45,7 @@ const articleSchema = new mongoose.Schema({
 
 });
 
-// TODO
-// Нужно задать поведение по умолчанию, чтобы база данных не возвращала это поле
-articleSchema.methods.omitPrivate = function omitPrivate() {
+articleSchema.methods.omitOwner = function omitOwner() {
   const obj = this.toObject();
   delete obj.owner;
   return obj;

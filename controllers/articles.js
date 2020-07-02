@@ -8,7 +8,10 @@ const {
 
 module.exports.getAllArticles = (req, res, next) => {
   Article.find({})
-    .then((articles) => res.send({ data: articles }))
+    // .then((articles) => res.send({ data: articles }))
+    .then((articles) => {
+      res.send({ data: articles.map((article) => article.omitOwner()) });
+    })
     .catch(next);
 };
 
@@ -34,7 +37,7 @@ module.exports.createArticle = (req, res, next) => {
     image,
     owner,
   })
-    .then((article) => res.send({ data: article.omitPrivate() }))
+    .then((article) => res.send({ data: article.omitOwner() }))
     .catch((err) => {
       let error = err;
       if (err.name === 'ValidationError' || err.name === 'CastError') {

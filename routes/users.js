@@ -5,7 +5,4 @@ routerUsers.get('/me', getUserInfo);
 
 module.exports = routerUsers;
 
-// # возвращает информацию о пользователе (email и имя)
-// GET /users/me
-
-// валидация?
+// TODO валидация?
