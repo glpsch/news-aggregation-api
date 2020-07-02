@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/glpsch/news-aggregation-api#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "celebrate": "^12.1.1",
     "cookie-parser": "^1.4.5",
@@ -27,7 +28,9 @@
     "express-rate-limit": "^5.1.3",
     "express-winston": "^4.0.3",
     "helmet": "^3.23.3",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.20",
+    "mongoose-validator": "^2.1.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

@@ -53,4 +53,4 @@ articleSchema.methods.omitPrivate = function omitPrivate() {
   return obj;
 };
 
-module.exports = mongoose.model('card', articleSchema);
+module.exports = mongoose.model('article', articleSchema);

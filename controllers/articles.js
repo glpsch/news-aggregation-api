@@ -50,7 +50,7 @@ module.exports.deleteArticle = (req, res, next) => {
       if (!article) {
         throw new NotFoundError('Такой статьи не существует');
       } else if (article.owner.equals(req.user._id)) {
-        article.remove(req.params.cardId);
+        article.remove(req.params.articleId);
         res.status(200).send({ message: 'Статья успешно удалена' });
       } else {
         throw new ForbiddenError('Вы не можете удалить чужую статью');
