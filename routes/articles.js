@@ -1,9 +1,9 @@
 const routerArticles = require('express').Router();
 // const { celebrate, Joi } = require('celebrate');
 
-const { getAllArticles, createArticle, deleteArticle } = require('../controllers/articles');
+const { getUserArticles, createArticle, deleteArticle } = require('../controllers/articles');
 
-routerArticles.get('/', getAllArticles);
+routerArticles.get('/', getUserArticles);
 routerArticles.post('/', createArticle);
 // routerCards.post('/', celebrate({
 //   body: Joi.object().keys({

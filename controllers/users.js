@@ -7,20 +7,17 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const {
   BadRequestError,
   UnauthorizedError,
-  NotFoundError,
+  // NotFoundError,
   ConflictError,
 } = require('../errors/errors');
 
 module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
+  // .orFail(() => { throw new NotFoundError('Для просмотра личной информации войдите на сайт'); })
     .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Для просмотра личной информации войдите на сайт');
-      }
       res.send({ name: user.name, email: user.email });
     })
     .catch((err) => {
-      // console.error('in catch:', err.name);
       let error = err;
       if (err.name === 'CastError') {
         error = new BadRequestError('Некорректный запрос');
@@ -34,12 +31,7 @@ module.exports.createUser = (req, res, next) => {
     name, email, password,
   } = req.body;
   User.init()
-    .then(() => {
-      if (!password || password.length < 6) {
-        throw new BadRequestError('Длина пароля должна быть не менее 6 символов');
-      }
-      return bcrypt.hash(password, 10);
-    })
+    .then(() => bcrypt.hash(password, 10))
     .then((hash) => User.create({
       name, email, password: hash,
     }))
@@ -61,7 +53,6 @@ module.exports.login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      // res.send({ token });
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : JWT_DEV, { expiresIn: '7d' });
 
       res

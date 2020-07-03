@@ -6,12 +6,15 @@ const {
   ForbiddenError,
 } = require('../errors/errors');
 
-module.exports.getAllArticles = (req, res, next) => {
-  Article.find({})
-    // .then((articles) => res.send({ data: articles }))
+module.exports.getUserArticles = (req, res, next) => {
+  Article.find({ owner: req.user._id })
+  // TODO
+    // .orFail(() => res.send({ message: 'У вас нет сохраненных статей' }))
+    .orFail(() => { throw new NotFoundError('У вас нет сохраненных статей'); })
     .then((articles) => {
       res.send({ data: articles.map((article) => article.omitOwner()) });
     })
+
     .catch(next);
 };
 

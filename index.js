@@ -6,14 +6,10 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
 const { PORT, DATABASE_URL } = require('./config');
+const routes = require('./routes');
 
-const routerArticles = require('./routes/articles');
-const routerUsers = require('./routes/users.js');
-const { createUser, login } = require('./controllers/users');
-const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
@@ -38,28 +34,8 @@ mongoose.connect(DATABASE_URL, {
 });
 
 app.use(requestLogger);
-
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
-  }),
-}), createUser);
-
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
-  }),
-}), login);
-
 app.use(cookieParser());
-app.use(auth);
-
-app.use('/articles', routerArticles);
-app.use('/users', routerUsers);
-
+app.use(routes);
 app.use(errorLogger);
 app.use(errors()); // обработчик ошибок celebrate
 
