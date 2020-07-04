@@ -7,7 +7,6 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const {
   BadRequestError,
   UnauthorizedError,
-  // NotFoundError,
   ConflictError,
 } = require('../errors/errors');
 

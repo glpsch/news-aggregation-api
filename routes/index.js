@@ -5,7 +5,6 @@ const routerUsers = require('./users.js');
 const routerAuth = require('./auth');
 
 const auth = require('../middlewares/auth');
-// const { checkPassword } = require('../middlewares/check-password');
 
 router.use('/', routerAuth);
 

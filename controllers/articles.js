@@ -44,7 +44,7 @@ module.exports.createArticle = (req, res, next) => {
     .catch((err) => {
       let error = err;
       if (err.name === 'ValidationError' || err.name === 'CastError') {
-        error = new BadRequestError('Некорректный запрос');
+        error = new BadRequestError('Некорректный формат статьи');
       }
       next(error);
     });

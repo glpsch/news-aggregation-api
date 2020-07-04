@@ -3,8 +3,6 @@ const { celebrate, Joi } = require('celebrate');
 const { createUser, login } = require('../controllers/users');
 const { checkPassword } = require('../middlewares/check-password');
 
-// TODO валидация?
-
 routerAuth.post('/signup', checkPassword, celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
