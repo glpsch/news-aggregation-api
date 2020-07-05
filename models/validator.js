@@ -10,5 +10,4 @@ const emailValidator = validate({
   message: 'Введите корректный адрес электронной почты',
 });
 
-
 module.exports = { urlValidator, emailValidator };

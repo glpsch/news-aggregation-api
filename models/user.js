@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    // index: true,
     validate: emailValidator,
     unique: true,
   },
@@ -29,8 +28,7 @@ userSchema.methods.omitPrivate = function omitPrivate() {
   return obj;
 };
 
-// eslint-disable-next-line func-names
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {

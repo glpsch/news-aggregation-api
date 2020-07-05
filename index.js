@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
-// require('dotenv').config();
 
 const { errors } = require('celebrate');
 const { PORT, DATABASE_URL } = require('./config');
