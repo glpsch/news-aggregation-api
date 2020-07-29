@@ -9,6 +9,7 @@ const allowList = ['http://api.news-exploring.ga', 'http://news-exploring.ga', '
 
 const corsOptions = {
   origin: (origin, callback) => {
+    // todo: remove later
     console.log('CORS:', JSON.stringify({ origin }));
     if (allowList.includes(origin)) {
       callback(null, true);
