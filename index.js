@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const { errors } = require('celebrate');
 const { PORT, DATABASE_URL } = require('./config');
@@ -28,6 +29,7 @@ mongoose.connect(DATABASE_URL, {
 
 app.use(requestLogger);
 app.use(cookieParser());
+app.use(cors());
 app.use(routes);
 app.all('*', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
