@@ -5,6 +5,19 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const cors = require('cors');
 
+const allowList = ['http://api.news-exploring.ga', 'http://news-exploring.ga', 'https://api.news-exploring.ga', 'https://news-exploring.ga', 'http://localhost:8080', 'http://localhost'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    console.log('CORS:', JSON.stringify({ origin }));
+    if (allowList.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
 const { errors } = require('celebrate');
 const { PORT, DATABASE_URL } = require('./config');
 const routes = require('./routes');
@@ -29,7 +42,7 @@ mongoose.connect(DATABASE_URL, {
 
 app.use(requestLogger);
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(routes);
 app.all('*', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
