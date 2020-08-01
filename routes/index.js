@@ -10,10 +10,6 @@ router.use('/', routerAuth);
 
 router.use(auth);
 
-router.post('/validate', (req, res) => {
-  res.json({ status: 'ok' });
-});
-
 router.use('/articles', routerArticles);
 router.use('/users', routerUsers);
 
