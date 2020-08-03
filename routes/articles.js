@@ -7,7 +7,7 @@ routerArticles.get('/', getUserArticles);
 
 routerArticles.post('/', celebrate({
   body: Joi.object().keys({
-    keyword: Joi.string().required().min(2),
+    keyword: Joi.string().required(),
     title: Joi.string().required().min(2),
     text: Joi.string().required().min(2),
     date: Joi.string().required(),
